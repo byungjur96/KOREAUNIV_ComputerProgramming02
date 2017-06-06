@@ -1,0 +1,105 @@
+1.
+(a)
+class java.lang.Object
+java.lang.Object
+
+(b)
+x의 type은 Object이다. 왜냐하면 class 내에서 정의를 내렸기 때문이다.
+
+(c)
+x.getClass()는 class 객체를 반환하므로 class type이다.
+
+(d)
+x.getClass().getName()는 class의 이름을 반환하므로 string type이다.
+
+2.
+(a)
+ArrayList의 특정 index 값을 제거한다.
+
+(b)
+3
+4
+5
+
+(c)
+x의 type은 object이다.
+
+(d)
+[4, 5]
+
+(e)
+배열이 3칸인데 4번쨰 배열을 호출했다.
+
+3.
+(a)
+2
+3
+5
+7
+11
+13
+17
+19
+23
+29
+31
+37
+41
+43
+47
+53
+59
+61
+67
+71
+73
+79
+83
+89
+97
+101
+103
+107
+109
+113
+
+(b)
+120 이하의 소수이다.
+
+(c)
+package 실습_14;
+import java.util.ArrayList;
+
+/**
+ * Created by byungjuchae on 2016. 12. 7..
+ */
+public class Prime {
+    public static void main(String []args) {
+        ArrayList<Object> al = new ArrayList<>();
+        int n = 120;
+        for(int i = 0; i < n; i++) {
+            al.add(1);
+        }
+        al.set(0,0);
+        al.set(1,0);
+        for(int i = 2; i < n; i++) {
+            for(int j = 2; i*j < n; j++) {
+                al.set(i*j,0);
+            }
+        }
+        for(int i = 0; i < n; i++) {
+            if ((int)al.get(i) > 0) {
+                System.out.println(i);
+            }
+        }
+    }
+}
+
+
+4.
+..9
+.8
+5
+..4
+.3
+..2

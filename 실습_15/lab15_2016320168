@@ -1,0 +1,159 @@
+1.
+(a) 
+1
+2
+3
+
+(b)
+class java.lang.Integer
+1
+class java.lang.Integer
+2
+class java.lang.Integer
+3
+
+(c)
+[1, 2, 3]
+
+2.
+(a)
+[1, 2, 3, 4]
+[1, 2, 3, 4]
+
+(b)
+[1, 2, 3]
+[1, 2, 3, 4]
+
+(c)
+test04는 참조변수만 복사하기 때문에 a1이랑 a2가 같은 인스턴스를 가리키지만
+test05는 a2에 새로운 인스턴스를 할당하고 a1의 내부 값을 복사해서 전달해줘서 a1과 a2가 서로 다른 인스턴스를 가리킨다.
+
+3.
+(a)
+class Rational extends Number implements Comparable<Rational>
+{ ... }
+
+class RationalCmp implements Comparator<Long>
+{
+    @Override
+    public int compare(long x, long y) {
+    ...
+    }
+}
+
+
+(b)
+public class Rational extends Number implements Comparable<Rational> {
+    private long numerator = 0;
+    private long denominator = 1;
+    public Rational() {
+        this(0,1);
+    }
+
+    public Rational(long numerator, long denominator) {
+        long gcd = gcd(numerator, denominator);
+        this.numerator = ((denominator > 0) ? 1 : -1) * numerator / gcd;
+        this.denominator = Math.abs(denominator) / gcd;
+    }
+
+    private static long gcd(long n, long d) {
+        long n1 = Math.abs(n);
+        long n2 = Math.abs(d);
+        int gcd = 1;
+        for (int k = 1; k <= n1 && k <= n2; k++) {
+            if (n1 % k == 0 && n2 % k == 0) {
+                gcd = k;
+            }
+        }
+        return gcd;
+    }
+
+    public long getNumerator() {
+        return numerator;
+    }
+
+    public long getDenominator() {
+        return denominator;
+    }
+
+    public Rational add(Rational other) {
+        long tempdenominator=denominator*other.getDenominator();
+        long tempnumerator = numerator*other.getDenominator() + other.getNumerator()*denominator;
+        Rational newrational = new Rational(tempnumerator, tempdenominator);
+        return newrational;
+    }
+
+    public Rational subtract(Rational other) {
+        long tempdenominator = denominator*other.getDenominator();
+        long tempnumerator = numerator*other.getDenominator() - other.getNumerator()*denominator;
+        Rational newrational = new Rational(tempnumerator, tempdenominator);
+        return newrational;
+    }
+
+
+    public Rational multiply(Rational other) {
+        long tempdenominator = denominator * other.getDenominator();
+        long tempnumerator = numerator * other.getNumerator();
+        Rational newrational = new Rational(tempnumerator, tempdenominator);
+        return newrational;
+    }
+
+    public Rational divide(Rational other) {
+        long tempdenominator = denominator * other.getNumerator();
+        long tempnumerator = numerator * other.getDenominator();
+        Rational newrational = new Rational(tempnumerator, tempdenominator);
+        return newrational;
+    }
+
+    @Override
+    public String toString() {
+        if(denominator==1)
+            return ""+numerator;
+        return numerator+"/"+denominator;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if((this.subtract((Rational)other)).getNumerator()==0)
+            return true;
+        return false;
+    }
+
+    @Override
+    public int intValue() {
+        return (int)(numerator/denominator);
+    }
+
+    @Override
+    public float floatValue() {
+        return (float)numerator/(float)denominator;
+    }
+
+    @Override
+    public long longValue() {
+        return numerator/denominator;
+    }
+
+    @Override
+    public double doubleValue() {
+        return (double)numerator/(double)denominator;
+    }
+
+    @Override
+    public int compareTo(Rational other) {
+        if((int)this.subtract(other).numerator>0)
+            return 1;
+        if((int)this.subtract(other).numerator<0)
+            return -1;
+        else
+            return 0;
+    }
+}
+
+
+(c)
+2 + 2/3 = 8/3
+2 - 2/3 = 4/3
+2 * 2/3 = 4/3
+2 / 2/3 = 3
+2/3 is 0.6666666666666666
